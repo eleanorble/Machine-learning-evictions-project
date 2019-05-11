@@ -1,0 +1,958 @@
+county,count,total_or_evic,judgement_year
+Aitkin,0,evics,2009
+Aitkin,0,evics,2010
+Aitkin,0,evics,2011
+Aitkin,0,evics,2012
+Aitkin,0,evics,2013
+Aitkin,0,evics,2014
+Aitkin,0,evics,2015
+Aitkin,0,evics,2016
+Aitkin,0,evics,2017
+Aitkin,0,evics,2018
+Aitkin,0,evics,2019
+Anoka,0,evics,2009
+Anoka,0,evics,2010
+Anoka,0,evics,2011
+Anoka,0,evics,2012
+Anoka,0,evics,2013
+Anoka,0,evics,2014
+Anoka,0,evics,2015
+Anoka,0,evics,2016
+Anoka,0,evics,2017
+Anoka,0,evics,2018
+Anoka,0,evics,2019
+Becker,0,evics,2009
+Becker,0,evics,2010
+Becker,0,evics,2011
+Becker,0,evics,2012
+Becker,0,evics,2013
+Becker,0,evics,2014
+Becker,0,evics,2015
+Becker,0,evics,2016
+Becker,0,evics,2017
+Becker,0,evics,2018
+Becker,0,evics,2019
+Beltrami,0,evics,2009
+Beltrami,0,evics,2010
+Beltrami,0,evics,2011
+Beltrami,0,evics,2012
+Beltrami,0,evics,2013
+Beltrami,0,evics,2014
+Beltrami,0,evics,2015
+Beltrami,0,evics,2016
+Beltrami,0,evics,2017
+Beltrami,0,evics,2018
+Beltrami,0,evics,2019
+Benton,0,evics,2009
+Benton,0,evics,2010
+Benton,0,evics,2011
+Benton,0,evics,2012
+Benton,0,evics,2013
+Benton,0,evics,2014
+Benton,0,evics,2015
+Benton,0,evics,2016
+Benton,0,evics,2017
+Benton,0,evics,2018
+Benton,0,evics,2019
+Big Stone,0,evics,2009
+Big Stone,0,evics,2010
+Big Stone,0,evics,2011
+Big Stone,0,evics,2012
+Big Stone,0,evics,2013
+Big Stone,0,evics,2014
+Big Stone,0,evics,2015
+Big Stone,0,evics,2016
+Big Stone,0,evics,2017
+Big Stone,0,evics,2018
+Big Stone,0,evics,2019
+Blue Earth,0,evics,2009
+Blue Earth,0,evics,2010
+Blue Earth,0,evics,2011
+Blue Earth,0,evics,2012
+Blue Earth,0,evics,2013
+Blue Earth,0,evics,2014
+Blue Earth,0,evics,2015
+Blue Earth,0,evics,2016
+Blue Earth,0,evics,2017
+Blue Earth,0,evics,2018
+Blue Earth,0,evics,2019
+Brown,0,evics,2009
+Brown,0,evics,2010
+Brown,0,evics,2011
+Brown,0,evics,2012
+Brown,0,evics,2013
+Brown,0,evics,2014
+Brown,0,evics,2015
+Brown,0,evics,2016
+Brown,0,evics,2017
+Brown,0,evics,2018
+Brown,0,evics,2019
+Carlton,0,evics,2009
+Carlton,0,evics,2010
+Carlton,0,evics,2011
+Carlton,0,evics,2012
+Carlton,0,evics,2013
+Carlton,0,evics,2014
+Carlton,0,evics,2015
+Carlton,0,evics,2016
+Carlton,0,evics,2017
+Carlton,0,evics,2018
+Carlton,0,evics,2019
+Carver,0,evics,2009
+Carver,0,evics,2010
+Carver,0,evics,2011
+Carver,0,evics,2012
+Carver,0,evics,2013
+Carver,0,evics,2014
+Carver,0,evics,2015
+Carver,0,evics,2016
+Carver,0,evics,2017
+Carver,0,evics,2018
+Carver,0,evics,2019
+Cass,0,evics,2009
+Cass,0,evics,2010
+Cass,0,evics,2011
+Cass,0,evics,2012
+Cass,0,evics,2013
+Cass,0,evics,2014
+Cass,0,evics,2015
+Cass,0,evics,2016
+Cass,0,evics,2017
+Cass,0,evics,2018
+Cass,0,evics,2019
+Chippewa,0,evics,2009
+Chippewa,0,evics,2010
+Chippewa,0,evics,2011
+Chippewa,0,evics,2012
+Chippewa,0,evics,2013
+Chippewa,0,evics,2014
+Chippewa,0,evics,2015
+Chippewa,0,evics,2016
+Chippewa,0,evics,2017
+Chippewa,0,evics,2018
+Chippewa,0,evics,2019
+Chisago,0,evics,2009
+Chisago,0,evics,2010
+Chisago,0,evics,2011
+Chisago,0,evics,2012
+Chisago,0,evics,2013
+Chisago,0,evics,2014
+Chisago,0,evics,2015
+Chisago,0,evics,2016
+Chisago,0,evics,2017
+Chisago,0,evics,2018
+Chisago,0,evics,2019
+Clay,0,evics,2009
+Clay,0,evics,2010
+Clay,0,evics,2011
+Clay,0,evics,2012
+Clay,0,evics,2013
+Clay,0,evics,2014
+Clay,0,evics,2015
+Clay,0,evics,2016
+Clay,0,evics,2017
+Clay,0,evics,2018
+Clay,0,evics,2019
+Clearwater,0,evics,2009
+Clearwater,0,evics,2010
+Clearwater,0,evics,2011
+Clearwater,0,evics,2012
+Clearwater,0,evics,2013
+Clearwater,0,evics,2014
+Clearwater,0,evics,2015
+Clearwater,0,evics,2016
+Clearwater,0,evics,2017
+Clearwater,0,evics,2018
+Clearwater,0,evics,2019
+Cook,0,evics,2009
+Cook,0,evics,2010
+Cook,0,evics,2011
+Cook,0,evics,2012
+Cook,0,evics,2013
+Cook,0,evics,2014
+Cook,0,evics,2015
+Cook,0,evics,2016
+Cook,0,evics,2017
+Cook,0,evics,2018
+Cook,0,evics,2019
+Cottonwood,0,evics,2009
+Cottonwood,0,evics,2010
+Cottonwood,0,evics,2011
+Cottonwood,0,evics,2012
+Cottonwood,0,evics,2013
+Cottonwood,0,evics,2014
+Cottonwood,0,evics,2015
+Cottonwood,0,evics,2016
+Cottonwood,0,evics,2017
+Cottonwood,0,evics,2018
+Cottonwood,0,evics,2019
+Crow Wing,0,evics,2009
+Crow Wing,0,evics,2010
+Crow Wing,0,evics,2011
+Crow Wing,0,evics,2012
+Crow Wing,0,evics,2013
+Crow Wing,0,evics,2014
+Crow Wing,0,evics,2015
+Crow Wing,0,evics,2016
+Crow Wing,0,evics,2017
+Crow Wing,0,evics,2018
+Crow Wing,0,evics,2019
+Dakota,0,evics,2009
+Dakota,0,evics,2010
+Dakota,0,evics,2011
+Dakota,0,evics,2012
+Dakota,0,evics,2013
+Dakota,0,evics,2014
+Dakota,0,evics,2015
+Dakota,0,evics,2016
+Dakota,0,evics,2017
+Dakota,0,evics,2018
+Dakota,0,evics,2019
+Dodge,0,evics,2009
+Dodge,0,evics,2010
+Dodge,0,evics,2011
+Dodge,0,evics,2012
+Dodge,0,evics,2013
+Dodge,0,evics,2014
+Dodge,0,evics,2015
+Dodge,0,evics,2016
+Dodge,0,evics,2017
+Dodge,0,evics,2018
+Dodge,0,evics,2019
+Douglas,0,evics,2009
+Douglas,0,evics,2010
+Douglas,0,evics,2011
+Douglas,0,evics,2012
+Douglas,0,evics,2013
+Douglas,0,evics,2014
+Douglas,0,evics,2015
+Douglas,0,evics,2016
+Douglas,0,evics,2017
+Douglas,0,evics,2018
+Douglas,0,evics,2019
+Faribault,0,evics,2009
+Faribault,0,evics,2010
+Faribault,0,evics,2011
+Faribault,0,evics,2012
+Faribault,0,evics,2013
+Faribault,0,evics,2014
+Faribault,0,evics,2015
+Faribault,0,evics,2016
+Faribault,0,evics,2017
+Faribault,0,evics,2018
+Faribault,0,evics,2019
+Fillmore,0,evics,2009
+Fillmore,0,evics,2010
+Fillmore,0,evics,2011
+Fillmore,0,evics,2012
+Fillmore,0,evics,2013
+Fillmore,0,evics,2014
+Fillmore,0,evics,2015
+Fillmore,0,evics,2016
+Fillmore,0,evics,2017
+Fillmore,0,evics,2018
+Fillmore,0,evics,2019
+Freeborn,0,evics,2009
+Freeborn,0,evics,2010
+Freeborn,0,evics,2011
+Freeborn,0,evics,2012
+Freeborn,0,evics,2013
+Freeborn,0,evics,2014
+Freeborn,0,evics,2015
+Freeborn,0,evics,2016
+Freeborn,0,evics,2017
+Freeborn,0,evics,2018
+Freeborn,0,evics,2019
+Goodhue,0,evics,2009
+Goodhue,0,evics,2010
+Goodhue,0,evics,2011
+Goodhue,0,evics,2012
+Goodhue,0,evics,2013
+Goodhue,0,evics,2014
+Goodhue,0,evics,2015
+Goodhue,0,evics,2016
+Goodhue,0,evics,2017
+Goodhue,0,evics,2018
+Goodhue,0,evics,2019
+Grant,0,evics,2009
+Grant,0,evics,2010
+Grant,0,evics,2011
+Grant,0,evics,2012
+Grant,0,evics,2013
+Grant,0,evics,2014
+Grant,0,evics,2015
+Grant,0,evics,2016
+Grant,0,evics,2017
+Grant,0,evics,2018
+Grant,0,evics,2019
+Hennepin,0,evics,2009
+Hennepin,0,evics,2010
+Hennepin,0,evics,2011
+Hennepin,0,evics,2012
+Hennepin,0,evics,2013
+Hennepin,0,evics,2014
+Hennepin,0,evics,2015
+Hennepin,0,evics,2016
+Hennepin,0,evics,2017
+Hennepin,0,evics,2018
+Hennepin,0,evics,2019
+Houston,0,evics,2009
+Houston,0,evics,2010
+Houston,0,evics,2011
+Houston,0,evics,2012
+Houston,0,evics,2013
+Houston,0,evics,2014
+Houston,0,evics,2015
+Houston,0,evics,2016
+Houston,0,evics,2017
+Houston,0,evics,2018
+Houston,0,evics,2019
+Hubbard,0,evics,2009
+Hubbard,0,evics,2010
+Hubbard,0,evics,2011
+Hubbard,0,evics,2012
+Hubbard,0,evics,2013
+Hubbard,0,evics,2014
+Hubbard,0,evics,2015
+Hubbard,0,evics,2016
+Hubbard,0,evics,2017
+Hubbard,0,evics,2018
+Hubbard,0,evics,2019
+Isanti,0,evics,2009
+Isanti,0,evics,2010
+Isanti,0,evics,2011
+Isanti,0,evics,2012
+Isanti,0,evics,2013
+Isanti,0,evics,2014
+Isanti,0,evics,2015
+Isanti,0,evics,2016
+Isanti,0,evics,2017
+Isanti,0,evics,2018
+Isanti,0,evics,2019
+Itasca,0,evics,2009
+Itasca,0,evics,2010
+Itasca,0,evics,2011
+Itasca,0,evics,2012
+Itasca,0,evics,2013
+Itasca,0,evics,2014
+Itasca,0,evics,2015
+Itasca,0,evics,2016
+Itasca,0,evics,2017
+Itasca,0,evics,2018
+Itasca,0,evics,2019
+Jackson,0,evics,2009
+Jackson,0,evics,2010
+Jackson,0,evics,2011
+Jackson,0,evics,2012
+Jackson,0,evics,2013
+Jackson,0,evics,2014
+Jackson,0,evics,2015
+Jackson,0,evics,2016
+Jackson,0,evics,2017
+Jackson,0,evics,2018
+Jackson,0,evics,2019
+Kanabec,0,evics,2009
+Kanabec,0,evics,2010
+Kanabec,0,evics,2011
+Kanabec,0,evics,2012
+Kanabec,0,evics,2013
+Kanabec,0,evics,2014
+Kanabec,0,evics,2015
+Kanabec,0,evics,2016
+Kanabec,0,evics,2017
+Kanabec,0,evics,2018
+Kanabec,0,evics,2019
+Kandiyohi,0,evics,2009
+Kandiyohi,0,evics,2010
+Kandiyohi,0,evics,2011
+Kandiyohi,0,evics,2012
+Kandiyohi,0,evics,2013
+Kandiyohi,0,evics,2014
+Kandiyohi,0,evics,2015
+Kandiyohi,0,evics,2016
+Kandiyohi,0,evics,2017
+Kandiyohi,0,evics,2018
+Kandiyohi,0,evics,2019
+Kittson,0,evics,2009
+Kittson,0,evics,2010
+Kittson,0,evics,2011
+Kittson,0,evics,2012
+Kittson,0,evics,2013
+Kittson,0,evics,2014
+Kittson,0,evics,2015
+Kittson,0,evics,2016
+Kittson,0,evics,2017
+Kittson,0,evics,2018
+Kittson,0,evics,2019
+Koochiching,0,evics,2009
+Koochiching,0,evics,2010
+Koochiching,0,evics,2011
+Koochiching,0,evics,2012
+Koochiching,0,evics,2013
+Koochiching,0,evics,2014
+Koochiching,0,evics,2015
+Koochiching,0,evics,2016
+Koochiching,0,evics,2017
+Koochiching,0,evics,2018
+Koochiching,0,evics,2019
+Lac Qui Parle,0,evics,2009
+Lac Qui Parle,0,evics,2010
+Lac Qui Parle,0,evics,2011
+Lac Qui Parle,0,evics,2012
+Lac Qui Parle,0,evics,2013
+Lac Qui Parle,0,evics,2014
+Lac Qui Parle,0,evics,2015
+Lac Qui Parle,0,evics,2016
+Lac Qui Parle,0,evics,2017
+Lac Qui Parle,0,evics,2018
+Lac Qui Parle,0,evics,2019
+Lake,0,evics,2009
+Lake,0,evics,2010
+Lake,0,evics,2011
+Lake,0,evics,2012
+Lake,0,evics,2013
+Lake,0,evics,2014
+Lake,0,evics,2015
+Lake,0,evics,2016
+Lake,0,evics,2017
+Lake,0,evics,2018
+Lake,0,evics,2019
+Lake Of The Wood,0,evics,2009
+Lake Of The Wood,0,evics,2010
+Lake Of The Wood,0,evics,2011
+Lake Of The Wood,0,evics,2012
+Lake Of The Wood,0,evics,2013
+Lake Of The Wood,0,evics,2014
+Lake Of The Wood,0,evics,2015
+Lake Of The Wood,0,evics,2016
+Lake Of The Wood,0,evics,2017
+Lake Of The Wood,0,evics,2018
+Lake Of The Wood,0,evics,2019
+Le Sueur,0,evics,2009
+Le Sueur,0,evics,2010
+Le Sueur,0,evics,2011
+Le Sueur,0,evics,2012
+Le Sueur,0,evics,2013
+Le Sueur,0,evics,2014
+Le Sueur,0,evics,2015
+Le Sueur,0,evics,2016
+Le Sueur,0,evics,2017
+Le Sueur,0,evics,2018
+Le Sueur,0,evics,2019
+Lincoln,0,evics,2009
+Lincoln,0,evics,2010
+Lincoln,0,evics,2011
+Lincoln,0,evics,2012
+Lincoln,0,evics,2013
+Lincoln,0,evics,2014
+Lincoln,0,evics,2015
+Lincoln,0,evics,2016
+Lincoln,0,evics,2017
+Lincoln,0,evics,2018
+Lincoln,0,evics,2019
+Lyon,0,evics,2009
+Lyon,0,evics,2010
+Lyon,0,evics,2011
+Lyon,0,evics,2012
+Lyon,0,evics,2013
+Lyon,0,evics,2014
+Lyon,0,evics,2015
+Lyon,0,evics,2016
+Lyon,0,evics,2017
+Lyon,0,evics,2018
+Lyon,0,evics,2019
+Mahnomen,0,evics,2009
+Mahnomen,0,evics,2010
+Mahnomen,0,evics,2011
+Mahnomen,0,evics,2012
+Mahnomen,0,evics,2013
+Mahnomen,0,evics,2014
+Mahnomen,0,evics,2015
+Mahnomen,0,evics,2016
+Mahnomen,0,evics,2017
+Mahnomen,0,evics,2018
+Mahnomen,0,evics,2019
+Marshall,0,evics,2009
+Marshall,0,evics,2010
+Marshall,0,evics,2011
+Marshall,0,evics,2012
+Marshall,0,evics,2013
+Marshall,0,evics,2014
+Marshall,0,evics,2015
+Marshall,0,evics,2016
+Marshall,0,evics,2017
+Marshall,0,evics,2018
+Marshall,0,evics,2019
+Martin,0,evics,2009
+Martin,0,evics,2010
+Martin,0,evics,2011
+Martin,0,evics,2012
+Martin,0,evics,2013
+Martin,0,evics,2014
+Martin,0,evics,2015
+Martin,0,evics,2016
+Martin,0,evics,2017
+Martin,0,evics,2018
+Martin,0,evics,2019
+McLeod,0,evics,2009
+McLeod,0,evics,2010
+McLeod,0,evics,2011
+McLeod,0,evics,2012
+McLeod,0,evics,2013
+McLeod,0,evics,2014
+McLeod,0,evics,2015
+McLeod,0,evics,2016
+McLeod,0,evics,2017
+McLeod,0,evics,2018
+McLeod,0,evics,2019
+Meeker,0,evics,2009
+Meeker,0,evics,2010
+Meeker,0,evics,2011
+Meeker,0,evics,2012
+Meeker,0,evics,2013
+Meeker,0,evics,2014
+Meeker,0,evics,2015
+Meeker,0,evics,2016
+Meeker,0,evics,2017
+Meeker,0,evics,2018
+Meeker,0,evics,2019
+Mille Lacs,0,evics,2009
+Mille Lacs,0,evics,2010
+Mille Lacs,0,evics,2011
+Mille Lacs,0,evics,2012
+Mille Lacs,0,evics,2013
+Mille Lacs,0,evics,2014
+Mille Lacs,0,evics,2015
+Mille Lacs,0,evics,2016
+Mille Lacs,0,evics,2017
+Mille Lacs,0,evics,2018
+Mille Lacs,0,evics,2019
+Morrison,0,evics,2009
+Morrison,0,evics,2010
+Morrison,0,evics,2011
+Morrison,0,evics,2012
+Morrison,0,evics,2013
+Morrison,0,evics,2014
+Morrison,0,evics,2015
+Morrison,0,evics,2016
+Morrison,0,evics,2017
+Morrison,0,evics,2018
+Morrison,0,evics,2019
+Mower,0,evics,2009
+Mower,0,evics,2010
+Mower,0,evics,2011
+Mower,0,evics,2012
+Mower,0,evics,2013
+Mower,0,evics,2014
+Mower,0,evics,2015
+Mower,0,evics,2016
+Mower,0,evics,2017
+Mower,0,evics,2018
+Mower,0,evics,2019
+Murray,0,evics,2009
+Murray,0,evics,2010
+Murray,0,evics,2011
+Murray,0,evics,2012
+Murray,0,evics,2013
+Murray,0,evics,2014
+Murray,0,evics,2015
+Murray,0,evics,2016
+Murray,0,evics,2017
+Murray,0,evics,2018
+Murray,0,evics,2019
+Nicollet,0,evics,2009
+Nicollet,0,evics,2010
+Nicollet,0,evics,2011
+Nicollet,0,evics,2012
+Nicollet,0,evics,2013
+Nicollet,0,evics,2014
+Nicollet,0,evics,2015
+Nicollet,0,evics,2016
+Nicollet,0,evics,2017
+Nicollet,0,evics,2018
+Nicollet,0,evics,2019
+Nobles,0,evics,2009
+Nobles,0,evics,2010
+Nobles,0,evics,2011
+Nobles,0,evics,2012
+Nobles,0,evics,2013
+Nobles,0,evics,2014
+Nobles,0,evics,2015
+Nobles,0,evics,2016
+Nobles,0,evics,2017
+Nobles,0,evics,2018
+Nobles,0,evics,2019
+Norman,0,evics,2009
+Norman,0,evics,2010
+Norman,0,evics,2011
+Norman,0,evics,2012
+Norman,0,evics,2013
+Norman,0,evics,2014
+Norman,0,evics,2015
+Norman,0,evics,2016
+Norman,0,evics,2017
+Norman,0,evics,2018
+Norman,0,evics,2019
+Olmsted,0,evics,2009
+Olmsted,0,evics,2010
+Olmsted,0,evics,2011
+Olmsted,0,evics,2012
+Olmsted,0,evics,2013
+Olmsted,0,evics,2014
+Olmsted,0,evics,2015
+Olmsted,0,evics,2016
+Olmsted,0,evics,2017
+Olmsted,0,evics,2018
+Olmsted,0,evics,2019
+Otter Tail,0,evics,2009
+Otter Tail,0,evics,2010
+Otter Tail,0,evics,2011
+Otter Tail,0,evics,2012
+Otter Tail,0,evics,2013
+Otter Tail,0,evics,2014
+Otter Tail,0,evics,2015
+Otter Tail,0,evics,2016
+Otter Tail,0,evics,2017
+Otter Tail,0,evics,2018
+Otter Tail,0,evics,2019
+Pennington,0,evics,2009
+Pennington,0,evics,2010
+Pennington,0,evics,2011
+Pennington,0,evics,2012
+Pennington,0,evics,2013
+Pennington,0,evics,2014
+Pennington,0,evics,2015
+Pennington,0,evics,2016
+Pennington,0,evics,2017
+Pennington,0,evics,2018
+Pennington,0,evics,2019
+Pine,0,evics,2009
+Pine,0,evics,2010
+Pine,0,evics,2011
+Pine,0,evics,2012
+Pine,0,evics,2013
+Pine,0,evics,2014
+Pine,0,evics,2015
+Pine,0,evics,2016
+Pine,0,evics,2017
+Pine,0,evics,2018
+Pine,0,evics,2019
+Pipestone,0,evics,2009
+Pipestone,0,evics,2010
+Pipestone,0,evics,2011
+Pipestone,0,evics,2012
+Pipestone,0,evics,2013
+Pipestone,0,evics,2014
+Pipestone,0,evics,2015
+Pipestone,0,evics,2016
+Pipestone,0,evics,2017
+Pipestone,0,evics,2018
+Pipestone,0,evics,2019
+Polk,0,evics,2009
+Polk,0,evics,2010
+Polk,0,evics,2011
+Polk,0,evics,2012
+Polk,0,evics,2013
+Polk,0,evics,2014
+Polk,0,evics,2015
+Polk,0,evics,2016
+Polk,0,evics,2017
+Polk,0,evics,2018
+Polk,0,evics,2019
+Pope,0,evics,2009
+Pope,0,evics,2010
+Pope,0,evics,2011
+Pope,0,evics,2012
+Pope,0,evics,2013
+Pope,0,evics,2014
+Pope,0,evics,2015
+Pope,0,evics,2016
+Pope,0,evics,2017
+Pope,0,evics,2018
+Pope,0,evics,2019
+Ramsey,0,evics,2009
+Ramsey,0,evics,2010
+Ramsey,0,evics,2011
+Ramsey,0,evics,2012
+Ramsey,0,evics,2013
+Ramsey,0,evics,2014
+Ramsey,0,evics,2015
+Ramsey,0,evics,2016
+Ramsey,0,evics,2017
+Ramsey,0,evics,2018
+Ramsey,0,evics,2019
+Red Lake,0,evics,2009
+Red Lake,0,evics,2010
+Red Lake,0,evics,2011
+Red Lake,0,evics,2012
+Red Lake,0,evics,2013
+Red Lake,0,evics,2014
+Red Lake,0,evics,2015
+Red Lake,0,evics,2016
+Red Lake,0,evics,2017
+Red Lake,0,evics,2018
+Red Lake,0,evics,2019
+Redwood,0,evics,2009
+Redwood,0,evics,2010
+Redwood,0,evics,2011
+Redwood,0,evics,2012
+Redwood,0,evics,2013
+Redwood,0,evics,2014
+Redwood,0,evics,2015
+Redwood,0,evics,2016
+Redwood,0,evics,2017
+Redwood,0,evics,2018
+Redwood,0,evics,2019
+Renville,0,evics,2009
+Renville,0,evics,2010
+Renville,0,evics,2011
+Renville,0,evics,2012
+Renville,0,evics,2013
+Renville,0,evics,2014
+Renville,0,evics,2015
+Renville,0,evics,2016
+Renville,0,evics,2017
+Renville,0,evics,2018
+Renville,0,evics,2019
+Rice,0,evics,2009
+Rice,0,evics,2010
+Rice,0,evics,2011
+Rice,0,evics,2012
+Rice,0,evics,2013
+Rice,0,evics,2014
+Rice,0,evics,2015
+Rice,0,evics,2016
+Rice,0,evics,2017
+Rice,0,evics,2018
+Rice,0,evics,2019
+Rock,0,evics,2009
+Rock,0,evics,2010
+Rock,0,evics,2011
+Rock,0,evics,2012
+Rock,0,evics,2013
+Rock,0,evics,2014
+Rock,0,evics,2015
+Rock,0,evics,2016
+Rock,0,evics,2017
+Rock,0,evics,2018
+Rock,0,evics,2019
+Roseau,0,evics,2009
+Roseau,0,evics,2010
+Roseau,0,evics,2011
+Roseau,0,evics,2012
+Roseau,0,evics,2013
+Roseau,0,evics,2014
+Roseau,0,evics,2015
+Roseau,0,evics,2016
+Roseau,0,evics,2017
+Roseau,0,evics,2018
+Roseau,0,evics,2019
+Scott,0,evics,2009
+Scott,0,evics,2010
+Scott,0,evics,2011
+Scott,0,evics,2012
+Scott,0,evics,2013
+Scott,0,evics,2014
+Scott,0,evics,2015
+Scott,0,evics,2016
+Scott,0,evics,2017
+Scott,0,evics,2018
+Scott,0,evics,2019
+Sherburne,0,evics,2009
+Sherburne,0,evics,2010
+Sherburne,0,evics,2011
+Sherburne,0,evics,2012
+Sherburne,0,evics,2013
+Sherburne,0,evics,2014
+Sherburne,0,evics,2015
+Sherburne,0,evics,2016
+Sherburne,0,evics,2017
+Sherburne,0,evics,2018
+Sherburne,0,evics,2019
+Sibley,0,evics,2009
+Sibley,0,evics,2010
+Sibley,0,evics,2011
+Sibley,0,evics,2012
+Sibley,0,evics,2013
+Sibley,0,evics,2014
+Sibley,0,evics,2015
+Sibley,0,evics,2016
+Sibley,0,evics,2017
+Sibley,0,evics,2018
+Sibley,0,evics,2019
+St. Louis,0,evics,2009
+St. Louis,0,evics,2010
+St. Louis,0,evics,2011
+St. Louis,0,evics,2012
+St. Louis,0,evics,2013
+St. Louis,0,evics,2014
+St. Louis,0,evics,2015
+St. Louis,0,evics,2016
+St. Louis,0,evics,2017
+St. Louis,0,evics,2018
+St. Louis,0,evics,2019
+Stearns,0,evics,2009
+Stearns,0,evics,2010
+Stearns,0,evics,2011
+Stearns,0,evics,2012
+Stearns,0,evics,2013
+Stearns,0,evics,2014
+Stearns,0,evics,2015
+Stearns,0,evics,2016
+Stearns,0,evics,2017
+Stearns,0,evics,2018
+Stearns,0,evics,2019
+Steele,0,evics,2009
+Steele,0,evics,2010
+Steele,0,evics,2011
+Steele,0,evics,2012
+Steele,0,evics,2013
+Steele,0,evics,2014
+Steele,0,evics,2015
+Steele,0,evics,2016
+Steele,0,evics,2017
+Steele,0,evics,2018
+Steele,0,evics,2019
+Stevens,0,evics,2009
+Stevens,0,evics,2010
+Stevens,0,evics,2011
+Stevens,0,evics,2012
+Stevens,0,evics,2013
+Stevens,0,evics,2014
+Stevens,0,evics,2015
+Stevens,0,evics,2016
+Stevens,0,evics,2017
+Stevens,0,evics,2018
+Stevens,0,evics,2019
+Swift,0,evics,2009
+Swift,0,evics,2010
+Swift,0,evics,2011
+Swift,0,evics,2012
+Swift,0,evics,2013
+Swift,0,evics,2014
+Swift,0,evics,2015
+Swift,0,evics,2016
+Swift,0,evics,2017
+Swift,0,evics,2018
+Swift,0,evics,2019
+Todd,0,evics,2009
+Todd,0,evics,2010
+Todd,0,evics,2011
+Todd,0,evics,2012
+Todd,0,evics,2013
+Todd,0,evics,2014
+Todd,0,evics,2015
+Todd,0,evics,2016
+Todd,0,evics,2017
+Todd,0,evics,2018
+Todd,0,evics,2019
+Traverse,0,evics,2009
+Traverse,0,evics,2010
+Traverse,0,evics,2011
+Traverse,0,evics,2012
+Traverse,0,evics,2013
+Traverse,0,evics,2014
+Traverse,0,evics,2015
+Traverse,0,evics,2016
+Traverse,0,evics,2017
+Traverse,0,evics,2018
+Traverse,0,evics,2019
+Wabasha,0,evics,2009
+Wabasha,0,evics,2010
+Wabasha,0,evics,2011
+Wabasha,0,evics,2012
+Wabasha,0,evics,2013
+Wabasha,0,evics,2014
+Wabasha,0,evics,2015
+Wabasha,0,evics,2016
+Wabasha,0,evics,2017
+Wabasha,0,evics,2018
+Wabasha,0,evics,2019
+Wadena,0,evics,2009
+Wadena,0,evics,2010
+Wadena,0,evics,2011
+Wadena,0,evics,2012
+Wadena,0,evics,2013
+Wadena,0,evics,2014
+Wadena,0,evics,2015
+Wadena,0,evics,2016
+Wadena,0,evics,2017
+Wadena,0,evics,2018
+Wadena,0,evics,2019
+Waseca,0,evics,2009
+Waseca,0,evics,2010
+Waseca,0,evics,2011
+Waseca,0,evics,2012
+Waseca,0,evics,2013
+Waseca,0,evics,2014
+Waseca,0,evics,2015
+Waseca,0,evics,2016
+Waseca,0,evics,2017
+Waseca,0,evics,2018
+Waseca,0,evics,2019
+Washington,0,evics,2009
+Washington,0,evics,2010
+Washington,0,evics,2011
+Washington,0,evics,2012
+Washington,0,evics,2013
+Washington,0,evics,2014
+Washington,0,evics,2015
+Washington,0,evics,2016
+Washington,0,evics,2017
+Washington,0,evics,2018
+Washington,0,evics,2019
+Watonwan,0,evics,2009
+Watonwan,0,evics,2010
+Watonwan,0,evics,2011
+Watonwan,0,evics,2012
+Watonwan,0,evics,2013
+Watonwan,0,evics,2014
+Watonwan,0,evics,2015
+Watonwan,0,evics,2016
+Watonwan,0,evics,2017
+Watonwan,0,evics,2018
+Watonwan,0,evics,2019
+Wilkin,0,evics,2009
+Wilkin,0,evics,2010
+Wilkin,0,evics,2011
+Wilkin,0,evics,2012
+Wilkin,0,evics,2013
+Wilkin,0,evics,2014
+Wilkin,0,evics,2015
+Wilkin,0,evics,2016
+Wilkin,0,evics,2017
+Wilkin,0,evics,2018
+Wilkin,0,evics,2019
+Winona,0,evics,2009
+Winona,0,evics,2010
+Winona,0,evics,2011
+Winona,0,evics,2012
+Winona,0,evics,2013
+Winona,0,evics,2014
+Winona,0,evics,2015
+Winona,0,evics,2016
+Winona,0,evics,2017
+Winona,0,evics,2018
+Winona,0,evics,2019
+Wright,0,evics,2009
+Wright,0,evics,2010
+Wright,0,evics,2011
+Wright,0,evics,2012
+Wright,0,evics,2013
+Wright,0,evics,2014
+Wright,0,evics,2015
+Wright,0,evics,2016
+Wright,0,evics,2017
+Wright,0,evics,2018
+Wright,0,evics,2019
+Yellow Medicine,0,evics,2009
+Yellow Medicine,0,evics,2010
+Yellow Medicine,0,evics,2011
+Yellow Medicine,0,evics,2012
+Yellow Medicine,0,evics,2013
+Yellow Medicine,0,evics,2014
+Yellow Medicine,0,evics,2015
+Yellow Medicine,0,evics,2016
+Yellow Medicine,0,evics,2017
+Yellow Medicine,0,evics,2018
+Yellow Medicine,0,evics,2019

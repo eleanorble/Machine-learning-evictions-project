@@ -1,0 +1,28 @@
+judgment_type_desc,judgement_type_coll
+"Eviction, Failure to Vacate - Judgment       ",Eviction
+"Eviction, Non-Payment of Rent - Judgment     ",Eviction
+"Eviction, Other/Breach of Lease - Judgment   ",Eviction
+"Eviction, Violation of Covenants - Judgment",Eviction
+Dismissal by Stipulation - Judgment          ,Dismissed
+Dismissal With Prejudice - Judgment          ,Dismissed
+Dismissal with prejudice - not all parties   ,Dismissed
+Dismissal without prejudice                  ,Dismissed
+Dismissal without prejudice - not all parties,Dismissed
+Dismissed                                    ,Dismissed
+Dismissed - not all parties,Dismissed
+Settled ,Settled
+Settled prior to ADR ,Settled
+Settled prior to trial,Settled
+Closed administratively ,Closed
+Other (In Favor of Tenant),Closed
+Summary judgment - not all parties No action not settled,Closed
+Closed-Fee Not Waived and Not Paid,Closed
+Closed at filing,Closed
+Replevin Granted - Judgment,Other (Against Tenant)
+Summary judgment - not all parties,Other (Against Tenant)
+Judgment - not all parties,Other (Against Tenant)
+Judgment,Other (Against Tenant)
+Tenant Redemption - Judgment,Other (In Favor of Tenant)
+Summary judgment granted,Other (In Favor of Tenant)
+Dissolution Granted - Judgment,Other (Against Tenant)
+Forfeiture Denied,Other (In Favor of Tenant)

@@ -1,0 +1,248 @@
+---
+title: "trying lasso and stuff again"
+author: "Eleanor Noble"
+date: "May 11, 2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(tidyverse)
+library(ggplot2)
+library(janitor)
+library(ggmap)
+library(RColorBrewer)
+library(viridis)
+library(plotly)
+library(maps)
+library(lubridate)
+library(plotly)
+library(janitor)
+library(dplyr)
+library(sf)
+library(caret)
+```
+
+Hopefully this code works for reading in all the files
+```{r}
+#ev.mpls.raw this is all the rental license properties
+rental_prop_total<-read_sf("./rental_license_census_data.shp")%>%janitor::clean_names()
+census_pop<-read.csv("./census2010pop.txt")
+parcels_2018<-read.csv("./parcel_2018_post_cleaning.csv")
+ev.mpls<-read.csv("./rental_props_parcel_eviction_join.csv")
+
+census_pop$GEOG_UNIT<-as.numeric(census_pop$GEOG_UNIT)
+rental_prop_total$geoid10<-as.numeric(rental_prop_total$geoid10)
+
+rental_prop_total<-rental_prop_total%>%
+  left_join(census_pop,by=c("geoid10"="GEOG_UNIT"))
+
+parcels_2018<-parcels_2018%>%
+  select(pin,emv_total,year_built,homestead)%>%
+  mutate(apn = substr(pin,5,17) )
+
+parcels_2018$apn<- as.numeric(parcels_2018$apn)
+rental_prop_total$apn<-as.numeric(rental_prop_total$apn)
+
+rental_prop_total<-rental_prop_total%>%
+  left_join(parcels_2018,by=c("apn"="apn"))
+
+ev.mpls<-ev.mpls%>%
+  select(apn,eviction_count)
+
+rental_prop_total<-rental_prop_total%>%
+  left_join(ev.mpls, by=c("apn"="apn"))
+
+rental_prop_total$eviction<-ifelse(is.na(rental_prop_total$eviction_count)==TRUE,0,1)
+
+# write_csv(rental_prop_total,"log_reg_clean.csv")
+rentals_evics<-read_csv("./log_reg_clean.csv")%>%janitor::clean_names()
+
+rentals_evics<-rentals_evics%>%
+  mutate(eviction = as.factor(eviction))
+
+ev.mpls<-ev.mpls.raw%>%
+  janitor::clean_names()%>%janitor::remove_empty_rows()%>%
+  select(-(1:14))%>%
+  select(-(16:26))
+
+# write_csv(ev.mpls,"./to_clean.csv")
+
+ev.mpls<-read.csv("./rental_props_parcel_eviction_join.csv")
+rental_license_ct_data<-read_sf("./rental_license_census_data.shp")
+
+census_pop<-read.csv("./census2010pop.txt")
+
+ev.mpls<-ev.mpls%>%
+  left_join(rental_license_ct_data,by=c("licenseNum"="licenseNum"))
+
+census_pop$GEOG_UNIT<-as.numeric(census_pop$GEOG_UNIT)
+ev.mpls$GEOID10<-as.numeric(ev.mpls$GEOID10)
+
+ev.mpls<-ev.mpls%>%
+  left_join(census_pop,by=c("GEOID10"="GEOG_UNIT"))
+
+# write_csv(ev.mpls,"to_clean_part3.csv")
+
+ev.mpls2<-read_csv("./to_clean_part4.csv")%>%janitor::clean_names()
+
+ev.mpls2<-ev.mpls2%>%
+  filter(!is.na(license_num))
+
+rownames(ev.mpls2)<-ev.mpls2$license_num
+
+ev.mpls2<-ev.mpls2%>%
+  select(-license_num)
+```
+
+this is setting up the logistic regression 
+```{r}
+train_ctrl_cv10 <- trainControl(method = "cv", number = 10)
+
+set.seed(333)
+evic_mod <- train(
+    eviction ~ .,
+    data = rentals_evics,
+    method = "glm",
+    family = binomial,
+    metric = "Accuracy",
+    trControl = train_ctrl_cv10,
+    na.action = na.omit
+)
+
+evic_mod
+evic_mod$results
+```
+This should show the results of the confusion matrix for logistic regression
+```{r}
+rentals_evics[is.na(rentals_evics)] <- 0
+# predict() below uses 0.5 as a probability threshold by default
+mod_pred <- predict(evic_mod, newdata = rentals_evics)
+
+# Compute confusion matrix and statistics
+conf_mat <- confusionMatrix(data = mod_pred, reference = rentals_evics$eviction, positive = "1")
+# Print results
+conf_mat
+```
+
+This shows that the linear reg assumptions hold alright (no qq plot tho because that was kinda fuked up). This means using lasso for shrinkage is probably alright because there aren't any huge violations
+```{r}
+mod1_reg <- data.frame(
+    residual = residuals(lasso_var_mod),
+    predicted = fitted.values(lasso_var_mod)
+)
+
+# Plot
+ggplot(mod1_reg, aes(x = predicted, y = residual)) +
+    geom_point() +
+    geom_smooth(color = "blue", lwd = 3) + # Add a smooth trend
+    geom_hline(yintercept = 0, color = "red") # Add the y = 0 line
+
+```
+
+The OLS comparison model and the RMSE at the bottom to compare to other models.
+```{r}
+ev.mpls.scaled <- dist(scale(ev.mpls2, center = FALSE, scale = TRUE))
+
+least_squares_mod <- lm(eviction_count ~ ., data = ev.mpls2)
+coefficients(least_squares_mod)
+
+summary(least_squares_mod)
+
+train_ctrl_cv10 <- trainControl(method = "cv", number = 7)
+
+set.seed(253)
+
+mod1_cv10 <- train(
+    eviction_count ~ .,
+    data = ev.mpls2,
+    method = "lm",
+    trControl = train_ctrl_cv10,
+    na.action = na.omit
+)
+
+mean(mod1_cv10$resample$RMSE^2)
+
+```
+
+All the lasso stuff
+```{r}
+train_ctrl_cv10 <- trainControl(method = "cv", number = 10)
+
+# Create a grid of lambda values
+lambdas <- 10^seq(-3, 3, length.out = 100)
+
+# Fit LASSO models for all of the lambdas
+set.seed(74)
+lasso_mod <- train(
+    eviction_count ~ .,
+    data = ev.mpls2,
+    method = "glmnet",
+    trControl = trainControl(method = "cv", number = 7),
+    tuneGrid = data.frame(alpha = 1, lambda = lambdas),
+    metric = "RMSE",
+    na.action = na.omit
+)
+
+# Model coefficients for lambda = 100
+coefficients(lasso_mod$finalModel, 100)
+
+# Plot summary of coefficient estimates
+plot(lasso_mod$finalModel, xvar = "lambda", label = TRUE, col = rainbow(20))
+
+# Zoom in
+plot(lasso_mod$finalModel, xvar = "lambda", label = TRUE, col = rainbow(20), ylim = c(-.0001,.0001))
+
+# What variables do the numbers correspond to?
+rownames(lasso_mod$finalModel$beta)
+
+plot(lasso_mod,xlim = c(-1,5))
+plot(lasso_mod,xlim = c(-.1,1))
+
+mean(lasso_mod$resample$RMSE^2)
+```
+
+picking the best lambdas
+```{r}
+best_lambdas <- function(model) {
+    # Extract the results table
+    res <- model$results
+    # Extract the K in K-fold CV
+    k <- model$control$number
+    # Compute the standard error (SE) of the RMSE estimate
+    res$rmse_se <- res$RMSESD/sqrt(k)
+    # Which lambda resulted in the lowest RMSE?
+    index_lambda_min <- which.min(res$RMSE)
+    lambda_min <- res$lambda[index_lambda_min]
+    # Compute 1 SE below and above the minimum RMSE
+    res$rmse_lower <- res$RMSE - res$rmse_se
+    res$rmse_upper <- res$RMSE + res$rmse_se
+    rmse_lower <- res$RMSE[index_lambda_min] - res$rmse_se[index_lambda_min]
+    rmse_upper <- res$RMSE[index_lambda_min] + res$rmse_se[index_lambda_min]
+    res$within_1se <- res$RMSE >= rmse_lower & res$RMSE <= rmse_upper
+    index_lambda_1se <- max(which(res$within_1se))
+    lambda_1se <- res$lambda[index_lambda_1se]
+    p <- ggplot(res, aes(x = lambda, y = RMSE)) +
+        geom_pointrange(aes(ymin = rmse_lower, ymax = rmse_upper))
+    print(p)
+    output <- res[c(index_lambda_min, index_lambda_1se),c("lambda", "RMSE")]
+    rownames(output) <- c("lambda_min", "lambda_1se")
+    output
+}
+
+lambda_choices <- best_lambdas(lasso_mod)
+lambda_choices
+
+# Coefficients for the lambda_1se LASSO model
+lambda_choices["lambda_1se", "lambda"]
+
+coefficients(lasso_mod$finalModel, .03)
+
+#lasso mod rmse
+mean(lasso_mod$resample$RMSE^2)
+
+```
+

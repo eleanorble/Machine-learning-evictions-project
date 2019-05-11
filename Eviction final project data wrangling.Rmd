@@ -1,0 +1,406 @@
+---
+title: "MN court data"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+```{r}
+library(tidyverse)
+library(ggplot2)
+library(janitor)
+library(ggmap)
+library(RColorBrewer)
+library(viridis)
+library(plotly)
+library(maps)
+library(lubridate)
+library(plotly)
+```
+
+
+```{r}
+courts_raw<-read_csv("./copy of extract 2.6.19.csv")%>%janitor::clean_names()
+judgments_simply<-read_csv("./basic judgement descriptions.csv")%>%janitor::clean_names()
+```
+
+```{r functions}
+# Custom functions
+
+# Define LLCs and corporations with regular expressions
+
+llc <- c("LLC\\.?|Inc\\.?|\\bL\\.?l{0,2}P\\.?\\b|Corp\\b|Company|Co\\.|\\bCo\\b|Ltd\\.?|\\bG\\.?P\\.?\\b|
+         \\(GP\\)|\\sL\\sP|Partnership|Limited^|Corporation|Public Housing|
+         Inc\\.?|Office|Apartments?|Bank\\b|Mortgage|State of Minnesota|
+         Minnesota Housing|Properties|Trust\\b|Investments|Credit Union") 
+    # Types of corporations or LLCs
+    # Including Banks, Public Housing, Corps, Offices, etc.
+
+# Function to capitalize each word, including common acronyms
+
+simpleCap <- function(x) {
+  
+  llc.cap <- c("Llc\\.?|L\\.?l{0,2}p\\.?|G\\.?p\\.?|\\(gp\\)|Iii?|Us\\s|Fsb|Na$")
+  
+  s <- strsplit(tolower(x), "\\s")[[1]] # split if there is a space
+  
+  gsub("(-\\w)", "\\U\\1", # next in gsub to capitalze after hyphens post-hoc
+       paste(toupper(substring(s, 1,1)), substring(s, 2), sep="", collapse=" "), 
+       pe = TRUE) %>%
+    str_replace_all(llc.cap, toupper) # capitalize common acronyms
+}
+
+# Custom function for turning name into separate columns (first, middle, last, suffix)
+
+# Process: Input single variable, output multiple ones (based on variable name/abbreviation?)
+# Screen for LLCs, use variable to differentiate, then use humaniformat to reverse, possibly clear up periods,
+# then parse into columns with first column name (or first letters) as prefix
+
+# Works whether data is Smith, John or John Smith and tries to differentiate companies and LLCs from people
+
+# Usage: input list, turns into data frame with multiple columns (original, column plus separate name elements)
+
+sep.names <- function(x, y) { # x for list with full unformatted names; y for name of list
+  
+  x.name <- y # extract name for later use, still working on this
+
+  llc.cap <- c("Llc\\.?|L\\.?l{0,2}p\\.?|G\\.?p\\.?|\\(gp\\)|Iii?|Fsb|Us\\s") # acronyms to capitalize
+  
+  suffix <- c("Jr\\.?|Sr\\.?|1$|Iii?") # possible suffices
+  
+  x2 <- as.data.frame(x) %>% 
+    filter(!is.na(x) | x == "") %>%
+    mutate(x2 = sapply(x, simpleCap)) %>% # capitalize each word
+    mutate(llc = ifelse(grepl(llc, x2), 1, 0)) %>%
+    mutate(x2 = str_replace_all(x2, llc.cap, toupper)) %>% # capitalize LLCs, etc
+    mutate(x2 = str_replace_all(x2, "\\(([^\\)]+)\\)", "")) %>% # remove parentheses
+      # mutate(x = str_replace_all(x, "\\,\\s\\.", "")) %>% # remove trailing punctuation
+    mutate(x2 = ifelse(llc == 0, format_reverse(x2), x2)) %>% # reverse when there are commas
+    mutate(suffix = str_detect(x2, "^(.(?!(Jr\\.?|Sr\\.?|1$|Iii?)))+$")) %>%
+    mutate(x2 = ifelse((llc == 0 & str_detect(x2, "^(.(?!(Jr\\.?|Sr\\.?|1$|Iii?\\b)))+$") == "FALSE"), 
+                          # only if not llc and doesn't already have common suffix at the end
+                       str_replace_all(x2, "(.*)\\s(Jr\\.?|Sr\\.?|1$|Iii?)\\s(.*)",
+                                                "\\ 1 \\3 \\2"), x2)) # Move suffix to the end (after reversing)
+  
+  parse <- x2 %>%
+    filter(llc == 0) %>%
+    do(parse_names(.$x2)) %>%
+    select(-salutation) %>%
+    rename_at(vars(-full_name), function(x) paste0(x.name, "_", x))
+  
+  x2 <- x2 %>% # replace with original data frame
+    left_join(parse, by = c("x2" = "full_name")) %>%
+    rename(!!paste0(x.name, "_full_name") := "x2") %>% # operation for different input/output
+    select(-llc, -suffix)
+
+  return(distinct(x2)) # return, but remove dupliacte rows
+}
+
+# Example usage - separate names on an existing data set and join
+
+#data2 <- data %>%
+#  left_join(sep.names(data$name, "name_title"), 
+#            by = c("name" = "x"))
+
+# - Join with function on previous data frame
+# - Name title will be the column name for the separate names (i.e. name_title_last_name)
+# - Join on x and the original name column
+```
+
+each row should be a unique party at unique addresses in a unique eviction filing, but I noticed some repeat records that didn't seem to make any sense. I decided to extract only the unique recrods
+```{r}
+ev<-unique(courts_raw)
+```
+
+This cleans up the plaintiff and defendant addresses
+```{r}
+ev<-ev%>%
+  mutate(party_address_before_space = gsub( " .*$", "", party_address_line1 ))%>% #first chunk of numbers or letters in party address before space to be used in the future to match with bldg_num 
+  mutate(number_new = substr(party_address_line1,start=0,stop=1))%>% #first letter/number in the party address chunk 
+  mutate(party_line1_num = ifelse((grepl("[[:digit:]]", number_new))==TRUE,"yes","no"))
+
+ev<-ev%>%
+  mutate(clean_party_address = ifelse(party_line1_num=="yes" & is.na(party_address_line3)==TRUE , paste(party_address_line1, party_address_line2), paste(party_address_line2,party_address_line3)))%>%
+  mutate(party_first_three=substr(party_address_line1,start=0,stop=3))%>% #this will be used for PO boxes 
+  mutate(last_2_party_char = str_sub(clean_party_address,-2)) #if the last two characters in the addressress are NA then it was an address that started with letters instead of numbers 
+  
+ev$clean_party_address<-ifelse(ev$party_address_before_space=="PO" | ev$party_first_three=="P O" , paste(ev$party_address_line1,ev$party_address_line2), ev$clean_party_address)
+ev$clean_party_address<-ifelse(ev$last_2_party_char=="NA", paste(ev$party_address_line1,ev$party_address_line2),ev$clean_party_address)
+ev$party_address_before_space<-gsub( " .*$", "", ev$clean_party_address )
+
+ev<-ev%>%
+  mutate(without_na=substr(ev$clean_party_address,1,nchar(ev$clean_party_address)-3))
+
+ev$clean_party_address<-ifelse(ev$last_2_party_char=="NA", ev$without_na, ev$clean_party_address )
+
+
+###once we're done with the clean party address fields we'll get rid of most of them
+
+ev$number_new<-NULL
+ev$party_line1_num<-NULL
+ev$party_first_three<-NULL
+ev$party_address_before_space<-NULL
+ev$last_2_party_char<-NULL
+ev$without_na<-NULL
+```
+
+```{r data wrangling}
+# Wrangle into tidy data - every row should be a single observation (court case)
+
+ev2 <- ev %>%
+  mutate(case_filed_date = as.Date(case_filed_date, format = "%m/%d/%Y")) %>%
+  mutate(judgment_date = as.Date(judgment_date, format = "%m/%d/%Y %H:%M")) %>%
+  select(-(judgment_award_entered_date:satisfaction_type_desc), -(type_code:type_desc),
+         -(base_type_code:base_type_desc), -district_desc, -county) %>% 
+    # for now, remove judgements
+    # also remove type and base_type (only 1) and county and district descriptions (may match on codes later)
+  mutate(party_zip = as.integer(gsub(party_zip, pattern = "-[0-9]{0,4}", replacement = ""))) %>%
+    # fix zip codes - first, remove trailing numbers on zip code
+  mutate(party_zip = ifelse(nchar(party_zip) == 9, as.integer(substr(party_zip, 1, nchar(party_zip)-4)),
+                            party_zip)) %>%
+    # second, remove additional digits in zip if no dash is used
+  mutate_all(funs(str_trim(.))) %>% # remove head and trailing spaces
+  mutate(party_full_name2 = sapply(party_full_name, simpleCap)) %>% 
+    # capitalize first letter of names, everything else to lowercaps
+  select(current_case_number:party_full_name, party_full_name2, party_address_line1:judgment_type_desc) %>%
+    # rearrange variables to keep names together
+  group_by(current_case_number, case_party_involvement_code) %>% # group by case and party
+  mutate(party_no = str_pad(as.character(row_number()), 2, pad = "0")) %>% 
+    # number each party (i.e. first defendant, second defendant)
+    # nested within str_pad which adds a leading zero (so 10 does not follow 1, etc.)
+  mutate(def_no = ifelse(case_party_involvement_code == "DFD", n(), NA)) %>% # find number of defs and plas
+  mutate(pla_no = ifelse(case_party_involvement_code == "PLN", n(), NA)) %>%
+  unite(case_party_no, case_party_involvement_code, party_no) %>% # create variable for party and number
+  group_by(current_case_number) %>%
+  mutate(mult_judg_dates = n_distinct(judgment_date)) %>%
+  mutate(mult_judg_dates = (ifelse(mult_judg_dates > 1, 1, 0))) %>%
+  arrange(def_no) %>% mutate(def_no = def_no[1]) %>% # copy number of defs and plas to all rows
+  arrange(pla_no) %>% mutate(pla_no = pla_no[1]) %>%
+  ungroup() 
+
+write_csv(ev2, "./post spreading evictions.csv") 
+
+ev2<-ev2%>%mutate_all(as.character) %>%
+  gather(variable, value, party_full_name:party_zip) %>%
+  unite(temp, case_party_no, variable) %>%
+  select(-case_party_involvement_desc) %>%
+  spread(temp, value)
+    # gather, unite, and spread: way to spread multiple columns, and make columns for the names and
+    # addresses of each defendant and plaintiff
+
+
+# clean variable types
+
+ev3 <- ev2 %>%
+  mutate_at(vars(case_filed_date), as.Date, format = "%m/%d/%Y") %>%
+  mutate_at(vars(judgment_date), as.Date, format = "%Y-%m-%d") %>%
+    # change both date variables to date
+  mutate_at(vars(district_code:case_status_desc, judgment_type_code:judgment_type_desc), as.factor) %>%
+    # change the others to factor
+  mutate_at(vars(def_no:pla_no), as.numeric) %>%
+    # change the number of defendants/paintiffs to numeric
+  mutate(PLN_01_party_full_name = ifelse(is.na(PLN_01_party_full_name), PLN_02_party_full_name,
+                                         PLN_01_party_full_name)) %>%
+  mutate(PLN_01_party_full_name2 = ifelse(is.na(PLN_01_party_full_name2), PLN_02_party_full_name2,
+                                         PLN_01_party_full_name2))
+    # For over 200 cases with absent primary plaintiff names, use the second name in these cases
+
+# separate data frame for judgments - also turn into wide data
+ev2.judg <- ev %>%
+  select(current_case_number, judgment_date:satisfaction_type_desc) %>%
+  filter(!is.na(judgment_award_entered_date)) %>% # only consider rows with judgement awards (as date)
+  group_by(current_case_number, award_party_role) %>%
+  mutate(party_no = str_pad(as.character(row_number()), 2, pad = "0")) %>%
+  mutate(cred_no = ifelse(award_party_role == "creditor", n(), NA)) %>%
+  mutate(debt_no = ifelse(award_party_role == "debtor", n(), NA)) %>%
+  unite(award_party_no, award_party_role, party_no) %>% # there are na party roles, have to remove later
+  group_by(current_case_number) %>%
+  arrange(cred_no) %>% mutate(cred_no = cred_no[1]) %>%
+  arrange(debt_no) %>% mutate(debt_no = debt_no[1]) %>%
+  ungroup() %>%
+  mutate_all(as.character) %>%
+  gather(variable, value, award_party_name) %>%
+  unite(temp, award_party_no, variable) %>%
+  spread(temp, value) #%>%
+  #select(-(na_01_award_party_name:na_12_award_party_name)) # remove na columns
+
+# Clean up variables
+ev3.judg <- ev2.judg %>%
+  mutate_at(vars(judgment_award_entered_date:judgment_award_satisfy_date), 
+            as.Date, format = "%y-%m-%d %h:%m:%s") %>%
+  mutate_at(vars(judgment_date), as.Date, format = "%y-%m-%d") %>%
+    # change both date variables to date
+  mutate_at(vars(judgment_type_code:judgment_type_desc,
+                 judgment_award_property_type_code:judgment_award_property_type_desc,
+                 satisfaction_type_code:satisfaction_type_desc), as.factor) %>%
+    # change the others to factor
+  mutate_at(vars(original_principal_amt, cred_no:debt_no), as.numeric)
+
+# Note - we haven't done anything with this judgment data - so far it's removed so that it doesn't untidy the main eviction court data
+
+write_csv(ev3, "./spread_clean_evictions.csv")
+```
+
+
+```{r}
+### Standardize and match primary plaintiffs
+
+# There are many different spellings of plaintiff names; there are also LLCs that are owned by the same property owner groups. This section matches based on misspellings, alternate spellings, and sources an external file where some cleaning was recorded.
+
+# Since we are matching on address, make a single address column for DFD 1 and PLA 1
+ev3.llord <- ev3 %>% # sample_n is more direct for rows than base R sample()
+  mutate_at(vars(DFD_01_party_address_line1:DFD_01_party_zip,
+                 PLN_01_party_address_line1:PLN_01_party_zip), funs(str_trim(.))) %>% 
+  # remove trailing and leading whitespace
+  mutate(dfd.zip = gsub(DFD_01_party_zip, 
+                                   pattern = "-[0-9]{0,4}", replacement = "")) %>%
+  # remove trailing numbers on zip code
+  # mutate(dfd.zip = ifelse(nchar(as.integer(dfd.zip)) == 9, 
+  #                        substr(zip, 1, nchar(dfd.zip)-4)), dfd.zip) %>%
+  # also remove trailing numbers without dash
+  mutate(dfd.address = paste(DFD_01_party_address_line1, DFD_01_party_address_line2,
+                         DFD_01_party_address_line3, DFD_01_party_address_line4,
+                         sep = ", ")) %>% # paste into single variable, separated by commas
+  mutate(dfd.address = gsub("NA, |, NA", "", dfd.address)) %>% # remove NA (easier than filtering before)
+  mutate(dfd.address = gsub("\\s\\,", "", dfd.address)) %>%
+  # Do the same for landlord addresses
+  mutate(pln.zip = gsub(as.character(PLN_01_party_zip), 
+                                   pattern = "-[0-9]{0,4}", replacement = "")) %>%
+  # mutate(pln.zip = ifelse(nchar(pln.zip) == 9, 
+  #                        as.integer(substr(zip, 1, nchar(pln.zip)-4)), pln.zip)) %>%
+  mutate(pln.address = paste(PLN_01_party_address_line1, PLN_01_party_address_line2,
+                             PLN_01_party_address_line3, PLN_01_party_address_line4,
+                             sep = ", ")) %>% 
+  mutate(pln.address = gsub("NA, |, NA", "", pln.address)) %>% 
+  mutate(pln.address = gsub("\\s\\,", "", pln.address)) %>%
+  mutate(pln.address = ifelse(pln.address == "NA", NA, pln.address))
+    # fix issue of NA characters in address
+
+llc2 <- c("LLC|LLP|\\bINC\\b|\\bLP\\b|\\bL\\sP\\b|COMPANY|\\bCO\\b|\\bLTD\\b|
+          \\bGP\\b|LIMITED PARTNERSHIP|PARTNERSHIP|LIMITED^|CORPORATION|\\bCORP\\b|INVESTMENTS|
+          CONSULTING|OFFICE|APARTMENTS?|MORTGAGE|PROPERTIES|TRUST|NATIONAL ASSOCIATION|
+          TOWNHOMES|ASSOCIATION|CONDOMINIUM|CONDO|OWNERS?|THE|CORP|
+          GROUP|\\sL$|\\sL\\s|\\bN\\sA\\b") # Types of corporations or LLCs
+# More inclusive - includes common words
+library(humaniformat)
+# separate names
+ev3.llord1 <- ev3.llord %>%
+  left_join(sep.names(ev3.llord$PLN_01_party_full_name, "llord"), # separate names
+            by = c("PLN_01_party_full_name" = "x")) %>%
+  select(current_case_number, dfd.zip:llord_suffix, PLN_01_party_city) %>% # select variables
+  mutate_all(funs(toupper)) %>% # change to uppercase (all)
+  mutate_all(funs(str_replace_all(., "[[:punct:] ]+", " "))) # remove punctuation
+  #distinct(llord_full_name, .keep_all = TRUE) %>% # remove duplicates based on exact full name matching
+    # don't want to remove duplicates? - this hinders matching same or similar names
+
+# remove common LLC and business titles/termms
+ev3.llord2 <- ev3.llord1 %>%
+  mutate(llord_full_name2 = str_replace_all(llord_full_name, llc2, "")) %>% 
+    # remove LLCs, Corp, Bank, etc. (i.e. don't match on this)
+  mutate(llord_full_name2 = str_trim(llord_full_name2, side = "both")) %>% 
+    # remove extra spaces
+  rename(prop_address = dfd.address,
+         llord_address = pln.address)
+    # rename variables
+
+# See most common names & corrections
+#ev3.llord.test2 <- ev3.llord2 %>%
+#  mutate(match = str_detect(llord_full_name, llc2)) %>%
+#  mutate(llord_full_name2 = str_replace_all(llord_full_name, llc2, "")) %>%
+#  group_by(llord_full_name, llord_full_name2, match) %>%
+#  summarize(n = n()) %>%
+#  arrange(desc(n))
+
+# Just match based on name
+ev3.llord3 <- ev3.llord2 %>%
+  mutate(block = ifelse(!is.na(llord_first_name) & !is.na(llord_last_name), 
+                        paste0(substr(llord_last_name, 1, 3), 
+                              str_extract(llord_address, "\\d+"), sep = ""),
+                        # TODO : only capture first match (numbers, whether address or PO Box)
+                        paste(substr(llord_full_name2, 1, 3),
+                              str_extract(llord_address, "\\d+"), sep = ""))) %>%
+    # block: first digits of last name or full name (if entity)
+    # also first block of numbers (so address number or PO Box number, for example)
+  mutate(block = str_replace_all(block, "\\D[NA]$", "")) %>% # remove NAs
+  mutate(block = str_replace_all(block, " ", "")) # remove spaces
+
+ev3_backup<-ev3
+
+#get rid of other address fields besides the property fields and the landlord address fields 
+ev3 <- ev3%>%
+  select(-(14:427))
+
+ev3 <- ev3 %>%
+  left_join(ev3.llord3, by=c("current_case_number"="current_case_number"))
+
+```
+
+#this creates a simplified version of the judgement decision categories 
+```{r}
+simple_judgments<-read_csv("./simple_judgements.csv")
+
+ev3<-ev3%>%
+  left_join(simple_judgments, by=c("judgment_type_desc"="judgment_type_desc"))
+```
+
+creating a useable judgement date field that can be plotted and filtered correctly
+```{r}
+ev3<-ev3%>%
+  mutate(judgement_mdy = gsub( " .*$", "", judgment_date ))
+
+ev3$judgement_ymd<-ymd(ev3$judgement_mdy)
+
+ev3<-ev3%>%
+  mutate(judgement_year = year(judgement_ymd))#just a column for year
+```
+
+Joinging the county names the counties back to the new wide evictions data frame
+```{r}
+ev_county<-ev%>%
+  select(current_case_number,county)%>%
+  group_by(current_case_number,county)%>%
+  summarise(total=n())
+
+ev_county$total<-NA
+
+ev3<-ev3%>%
+  left_join(ev_county, by=c("current_case_number"="current_case_number"))
+
+```
+
+
+Unique cases per year total and by county, including judgements
+```{r}
+cases_yearly<-ev3%>%
+  select(current_case_number, judgement_year, county, judgement_type_coll,judgement_ymd)
+
+cases_yearly<-unique(cases_yearly)
+```
+
+```{r}
+mpls_zips<-read_csv("./mpls_zips.csv")
+
+mpls_zips$dfd.zip<-as.character(mpls_zips$dfd.zip)
+
+mpls_evs<-ev3%>%
+  left_join(mpls_zips, by=c("dfd.zip"="dfd.zip"))%>%
+  filter(judgement_type_coll=="Eviction",minneapolis=="minneapolis")%>%
+  filter(judgement_year==2018|judgement_year==2019|judgement_year==2017)%>%
+  group_by(prop_address,dfd.zip,minneapolis)%>%
+  summarise(total_evs=n())
+
+
+write_csv(ev3,"evictions_cleanLLname_join.csv")
+write_csv(mpls_evs, "evictions_in_mpls_2017_2019.csv")
+  #put in a grepl about the clean address containing minneapolis somewhere in there
+
+  #append the dfd blank add to the henn county one after its been grouped by address and total number of evictions
+  
+  #more than one eviction? write it out, geocode it, and then spatially join it to the rental license data. Maybe just do in the past year for evictions.....
+
+
+```
+
